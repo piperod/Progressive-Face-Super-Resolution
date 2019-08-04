@@ -13,7 +13,7 @@ Deokyun Kim, Minseon Kim, Gihyun Kwon, and Dae-shik Kim, Progressive Face Super-
 create a folder:
 
 ```bash
- && mkdir dataset
+ mkdir dataset
 
 ```
 and then, download dataset. Anno & Img.
