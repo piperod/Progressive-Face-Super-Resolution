@@ -34,7 +34,7 @@ def test(dataloader, generator, MSE_Loss, step, alpha):
         avg_msssim += ms_ssim.item()
 
         sys.stdout.write('\r [%d/%d] Test progress... PSNR: %6.4f'%(i, len(dataloader), psnr))
-        utils.save_image(0.5*predicted_image+0.5,'./test_results/%d_results.jpg'%i)
+        utils.save_image(0.5*predicted_image+0.5, os.path.join(args.result_path, '%d_results.jpg'%i)
     print('Test done, Average PSNR:%6.4f, Average SSIM:%6.4f, Average MS-SSIM:%6.4f '%(avg_psnr/len(dataloader),avg_ssim/len(dataloader), avg_msssim/len(dataloader)))
 
 
@@ -45,8 +45,11 @@ if __name__ == '__main__':
     parser.add_argument('--data-path', default='./dataset/', type=str)
     parser.add_argument('--result-path', default='./result/', type=str)
     parser.add_argument('--workers', default=4, type=int)
-    parser.add_argument('--gpu-ids', default=[0,1,2,3], nargs='+', type=int)
     args = parser.parse_args()
+
+    if not os.path.exists(args.result_path):
+        os.mkdir(args.result_path)
+        print('===>make directory', args.result_path)
 
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     dataset = CelebDataSet(data_path=args.data_path, state='test')
@@ -58,7 +61,7 @@ if __name__ == '__main__':
     step = g_checkpoint['step']
     alpha = g_checkpoint['alpha']
     iteration = g_checkpoint['iteration']
-    
+
     print('pre-trained model is loaded step:%d, iteration:%d'%(step, iteration))
     MSE_Loss = nn.MSELoss()
 
