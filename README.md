@@ -6,6 +6,19 @@ Deokyun Kim, Minseon Kim, Gihyun Kwon, and Dae-shik Kim, Progressive Face Super-
 * Pytorch 1.0.0
 * CUDA 9.0 or higher
 
+### Data Preparation
+
+* [CelebA dataset](http://mmlab.ie.cuhk.edu.hk/projects/CelebA.html)
+
+create a folder:
+
+```bash
+ && mkdir dataset
+
+```
+and then, download dataset. Anno & Img.
+
+
 ## Test
 
 ```bash
