@@ -34,11 +34,12 @@ def test(dataloader, generator, MSE_Loss, step, alpha):
         avg_msssim += ms_ssim.item()
 
         sys.stdout.write('\r [%d/%d] Test progress... PSNR: %6.4f'%(i, len(dataloader), psnr))
-        utils.save_image(0.5*predicted_image+0.5, os.path.join(args.result_path, '%d_results.jpg'%i)
+        utils.save_image(0.5*predicted_image+0.5, os.path.join(args.result_path, '%d_results.jpg'%i))
     print('Test done, Average PSNR:%6.4f, Average SSIM:%6.4f, Average MS-SSIM:%6.4f '%(avg_psnr/len(dataloader),avg_ssim/len(dataloader), avg_msssim/len(dataloader)))
 
 
 if __name__ == '__main__':
+                         
     parser = argparse.ArgumentParser('Implemnetation of Progressive Face Super-Resolution Attention to Face Landmarks')
     parser.add_argument('--batch-size', default=16, type=int)
     parser.add_argument('--checkpoint-path', default='./checkpoints/', type=str)

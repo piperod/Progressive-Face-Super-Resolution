@@ -2,7 +2,7 @@ from torch.utils.data.dataset import Dataset
 import torchvision.transforms as transforms
 from os.path import join
 from PIL import Image
-
+import glob
 class CelebDataSet(Dataset):
     """CelebA dataset
     Parameters:
@@ -17,39 +17,40 @@ class CelebDataSet(Dataset):
         self.main_path = data_path
         self.state = state
 
-        self.img_path = join(self.main_path, 'CelebA/Img/img_align_celeba')
-        self.eval_partition_path = join(self.main_path, 'Anno/list_eval_partition.txt')
+        #self.img_path = join(self.main_path, 'CelebA/Img/img_align_celeba')
+        #self.eval_partition_path = join(self.main_path, 'Anno/list_eval_partition.txt')
 
         train_img_list = []
         val_img_list = []
         test_img_list = []
 
-        f = open(self.eval_partition_path, mode='r')
+        #f = open(self.eval_partition_path, mode='r')
 
-        while True:
-            line = f.readline().split()
+        #while True:
+        #    line = f.readline().split()
 
-            if not line: break
+        #    if not line: break
 
-            if line[1] == '0':
-                train_img_list.append(line)
-            elif line[1] =='1':
-                val_img_list.append(line)
-            else:
-                test_img_list.append(line)
+            #if line[1] == '0':
+               # train_img_list.append(line)
+           # elif line[1] =='1':
+        #        val_img_list.append(line)
+            #else:
+                #test_img_list.append(line)
 
-        f.close()
+        #f.close()
 
-        if state=='train':
-            train_img_list.sort()
-            self.image_list = train_img_list
-        elif state=='val':
-            val_img_list.sort()
-            self.image_list = val_img_list
-        else:
-            test_img_list.sort()
-            self.image_list = test_img_list
-
+        #i#f state=='train':
+        #    train_img_list.sort()
+        #    self.image_list = train_img_list
+        #elif state=='val':
+        #    val_img_list.sort()
+        #    self.image_list = val_img_list
+        #else:
+        #    test_img_list.sort()
+        #    self.image_list = test_img_list
+        
+        self.image_list = glob.glob(join(self.main_path,'*.jpg'))
         #image center cropping
         self.pre_process = transforms.Compose([
                                     transforms.CenterCrop((178, 178)),
